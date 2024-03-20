@@ -3,7 +3,7 @@ using RefactorSlotMachine;
 
 const string LOSS = "LOST", WIN = "WON";
 const decimal A_CENT = 0.01M, HALF_BONUS = 0.50M, A_DOLLAR = 1.00M, PLAYER_MONEY_RESET = 20.00M;
-const int LINE_3 = 2, LINE_LENGTH = 3, RAND_NUM_MAX = 3, LINE_6 = 5, NUM_OF_CHECKS = 8;
+const int LINE_3 = 2, LINE_LENGTH = 3, RAND_NUM_MAX = 3, LINE_6 = 5, LINE_7 = 6, LINE_8 = 7, NUM_OF_CHECKS = 8;
 decimal playerMoney = PLAYER_MONEY_RESET;
 Random rng = new ();
 // --------------------------------------------------------------------
@@ -52,7 +52,7 @@ decimal ValidateUserInputWager(decimal playerMoney, decimal userInputWager)
 
 decimal CalculateRemainingPlayerMoney(decimal playerMoney, decimal userInputWager)  // -------------
 {
-    return playerMoney -= userInputWager;
+    return playerMoney - userInputWager;
 }
 
 decimal CalculatePotentialEarnings(decimal userInputWager)
@@ -67,13 +67,13 @@ decimal CalculateWinEarnings(int wins, decimal userPotentialEarnings)
 
 decimal CalculateNewPlayerMoney(decimal playerMoney, decimal playerWinAmount) 
 {
-    return playerMoney += playerWinAmount;
+    return playerMoney + playerWinAmount;
 }
 
 int GetNumberWins(int[,] slotMachine) 
 {
     int slotLineNumber = 0;
-    int[] aSingleLine = [0, 1, 2];
+    int[] aSingleLine = [0, 0, 0];
     int wins = 0;
 
     while (slotLineNumber < NUM_OF_CHECKS) 
@@ -131,12 +131,12 @@ int[] GetDiagonalLine(int[,] slotMachine, int slotlineNumber, int[] aSingleLine)
     int j = LINE_LENGTH;
     for (int i = 0; i < LINE_LENGTH - 1; i++) 
     {
-        if (slotlineNumber == 6)
+        if (slotlineNumber == LINE_7)
         {
             aSingleLine[i] = slotMachine[i, i]; 
         }
 
-        if (slotlineNumber == 7)
+        if (slotlineNumber == LINE_8)
         {
             j--;
             aSingleLine[i] = slotMachine[i, j];
