@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace RefactorSlotMachine
 {
     public static class UIMethods
@@ -20,17 +14,18 @@ namespace RefactorSlotMachine
         public static void DisplayWagerQuestion(decimal playerMoney) 
         {
             Console.WriteLine($"\nPlayer money: ${playerMoney:F2}");
-            Console.Write($"How much is your wager (cannot exceed amount of player money): ");
+            Console.Write($"How much is your wager (cannot exceed amount of player money): $");
         }
 
-        public static void DisplaySlotMachine(int[,] array, int lineLength) 
+        public static void DisplaySlotMachine(int[,] slotMachine)  
         {
+            int lineLength = slotMachine.Length / (slotMachine.Rank + 1);
             Console.WriteLine("\nSlot Machine Roll");
             for (int i = 0; i < lineLength; i++)
             {
                 for (int j = 0; j < lineLength; j++)
                 {
-                    Console.Write($"{array[i, j]}  ");
+                    Console.Write($"{slotMachine[i, j]}  ");
                     if (j == lineLength - 1)
                     {
                         Console.Write("\n");
@@ -65,17 +60,18 @@ namespace RefactorSlotMachine
             Console.Write($"{win}\n");
         }
 
-        public static void DisplayGameResults(string game_results, decimal playerWinAmount)
+        public static void DisplayGameResults(decimal playerWinAmount)
         {
+            string game_results = (playerWinAmount > 0) ? "WON" : "LOST";
             Console.WriteLine($"\nPlayer {game_results}");
             Console.WriteLine($"Won: ${playerWinAmount:F2}");
         }
 
-        public static decimal ResetPlayerMoney(decimal playerMoney, decimal PLAYER_RESET_MONEY) 
+        public static decimal ResetPlayerMoney(decimal playerMoney) //
         { 
             if (playerMoney == 0)
             {
-                playerMoney = PLAYER_RESET_MONEY;
+                playerMoney = Logic.ResetPlayerMoney(playerMoney);
                 Console.WriteLine($"Player has lost all money. Resetting game...");
             }
             return playerMoney;
