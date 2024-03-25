@@ -6,7 +6,7 @@ UIMethods.DisplayWelcomeMessage();
 
 while(true)
 {
-    decimal userInputWager = Logic.ValidateUserInputWager(playerMoney, 0);
+    decimal userInputWager = Logic.ValidateUserInputWager(0, playerMoney);
     int[,] slotMachine = Logic.RandomizeSlotMachineRoll();
     playerMoney = Logic.CalculateRemainingPlayerMoney(userInputWager, playerMoney);
     decimal userPotentialEarnings = Logic.CalculatePotentialEarnings(userInputWager);
