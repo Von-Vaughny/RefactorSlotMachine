@@ -1,6 +1,6 @@
 ﻿using RefactorSlotMachine;
 
-decimal playerMoney = 20.00M;
+decimal playerMoney = Constants.PLAYER_MONEY_RESET;
 
 UIMethods.DisplayWelcomeMessage();
 
