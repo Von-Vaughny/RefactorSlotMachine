@@ -6,24 +6,23 @@ namespace RefactorSlotMachine
     /// </summary>
     public static class Logic
     {
-        static Random rng = new();
+        static readonly Random rng = new();
 
         /// <summary>
-        /// Validate that the userinputted wager is more than one cent but less than the amount of money the player has; repeat until condition met
+        /// Randomize the slot machine roll
         /// </summary>
-        /// <param name="userInputWager">The amount of money the player wagers</param>
-        /// <param name="playerMoney">The amount of money the player has</param>
-        /// <returns>Validated userinputted wager</returns>
-        public static decimal ValidateUserInputWager(decimal playerMoney)
+        /// <returns>Randomized 3 x 3 array for slot machine roll</returns>
+        public static int[,] RandomizeSlotMachineRoll()
         {
-            decimal userInputWager = 0.000M;
-
-            while (userInputWager < Constants.MIN_WAGER || userInputWager > playerMoney)
+            int[,] slotMachine = new int[Constants.LINE_LENGTH, Constants.LINE_LENGTH];
+            for (int i = 0; i < Constants.LINE_LENGTH; i++)
             {
-                UIMethods.DisplayWagerQuestion(playerMoney);
-                userInputWager = UIMethods.ReturnUserInput();
+                for (int j = 0; j < Constants.LINE_LENGTH; j++)
+                {
+                    slotMachine[i, j] = rng.Next(Constants.RAND_NUM_MAX);
+                }
             }
-            return userInputWager;
+            return slotMachine;
         }
 
         /// <summary>
@@ -47,22 +46,6 @@ namespace RefactorSlotMachine
             return Constants.EARNINGS_DIFFERENTIAL * userInputWager + Constants.BONUS_ADDITION;
         }
 
-        /// <summary>
-        /// Randomize the slot machine roll
-        /// </summary>
-        /// <returns>Randomized 3 x 3 array for slot machine roll</returns>
-        public static int[,] RandomizeSlotMachineRoll()
-        {
-            int[,] slotMachine = new int[Constants.LINE_LENGTH, Constants.LINE_LENGTH];
-            for (int i = 0; i < Constants.LINE_LENGTH; i++)
-            {
-                for (int j = 0; j < Constants.LINE_LENGTH; j++)
-                {
-                    slotMachine[i, j] = rng.Next(Constants.RAND_NUM_MAX);
-                }
-            }
-            return slotMachine;
-        }
 
         /// <summary>
         /// Get the number of lines won.
@@ -209,20 +192,6 @@ namespace RefactorSlotMachine
         public static decimal CalculateNewPlayerMoney(decimal playerMoney, decimal playerWinAmount)
         {
             return playerMoney + playerWinAmount;
-        }
-
-        /// <summary>
-        /// Reset player money if player has run out of money
-        /// </summary>
-        /// <param name="playerMoney">The amount of money the player has</param>
-        /// <returns>The amount of money the player has</returns>
-        public static decimal ResetPlayerMoney(decimal playerMoney) 
-        {  
-            if (playerMoney < Constants.MIN_WAGER)
-            {
-                playerMoney = Constants.INITIAL_PLAYER_MONEY;
-            }
-            return playerMoney;
         }
     }
 }

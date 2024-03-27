@@ -18,13 +18,38 @@ namespace RefactorSlotMachine
         }
 
         /// <summary>
-        /// Ask player to input wager
+        /// Validate user inputted wager.
         /// </summary>
         /// <param name="playerMoney">The amount of money the player has</param>
-        public static void DisplayWagerQuestion(decimal playerMoney) 
+        /// <returns>User inputted wager</returns>
+        public static decimal ValidateUserInput(decimal playerMoney)
         {
-            Console.WriteLine($"\nPlayer money: ${playerMoney:F2}");
-            Console.Write($"How much is your wager (cannot exceed amount of player money): $");
+            decimal userInputWager = 0.00M;
+            while (userInputWager < Constants.MIN_WAGER || userInputWager > playerMoney)
+            {
+                Console.WriteLine($"\nPlayer money: ${playerMoney:F2}");
+                Console.Write($"How much is your wager (cannot exceed amount of player money): $");
+
+                string userInput = Console.ReadLine();
+                if (!decimal.TryParse(userInput, out userInputWager))
+                {
+                    Console.WriteLine($"Error: '{userInput}' is not a numeric amount between ${Constants.MIN_WAGER} and ${playerMoney}.");
+                }                
+                
+                if (decimal.TryParse(userInput, out decimal userAmount))
+                {
+                    if (userAmount < Constants.MIN_WAGER || userAmount > playerMoney)
+                    {
+                        Console.WriteLine($"Error: ${userAmount} is not between ${Constants.MIN_WAGER} and ${playerMoney}.");
+                    }
+
+                    if (userAmount > Constants.MIN_WAGER && userAmount <= playerMoney) 
+                    {
+                        userInputWager = userAmount;
+                    }
+                }
+            }
+            return userInputWager;
         }
 
         /// <summary>
@@ -45,21 +70,6 @@ namespace RefactorSlotMachine
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Check user input for wager.
-        /// </summary>
-        /// <returns>User inputted wager or $0.00</returns>
-        public static decimal ReturnUserInput() 
-        {
-            decimal userInputWager = 0.00M;
-
-            if (decimal.TryParse(Console.ReadLine(), out decimal userAmount))
-            {
-                userInputWager = userAmount;
-            }
-            return userInputWager;
         }
 
         /// <summary>
@@ -99,12 +109,9 @@ namespace RefactorSlotMachine
         /// </summary>
         /// <param name="playerMoney">The amount of money the player has</param>
         /// <returns></returns>
-        public static void ResetPlayerMoney(decimal playerMoney) 
+        public static void DisplayGameResetMessage() 
         { 
-            if (playerMoney < Constants.MIN_WAGER)
-            {
-                Console.WriteLine($"Player has lost all money. Resetting game...");
-            }
+            Console.WriteLine($"Player has lost all money. Resetting game...\n");
         }
     }
 }
