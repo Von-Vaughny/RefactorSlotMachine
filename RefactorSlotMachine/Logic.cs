@@ -14,9 +14,11 @@ namespace RefactorSlotMachine
         /// <param name="userInputWager">The amount of money the player wagers</param>
         /// <param name="playerMoney">The amount of money the player has</param>
         /// <returns>Validated userinputted wager</returns>
-        public static decimal ValidateUserInputWager(decimal userInputWager, decimal playerMoney)
+        public static decimal ValidateUserInputWager(decimal playerMoney)
         {
-            while (userInputWager < Constants.A_CENT || userInputWager > playerMoney)
+            decimal userInputWager = 0.000M;
+
+            while (userInputWager < Constants.MIN_WAGER || userInputWager > playerMoney)
             {
                 UIMethods.DisplayWagerQuestion(playerMoney);
                 userInputWager = UIMethods.ReturnUserInput();
@@ -42,7 +44,7 @@ namespace RefactorSlotMachine
         /// <returns>The amount player earns for each line won</returns>
         public static decimal CalculatePotentialEarnings(decimal userInputWager)
         {
-            return Constants.HALF_BONUS * userInputWager + Constants.A_DOLLAR;
+            return Constants.EARNINGS_DIFFERENTIAL * userInputWager + Constants.BONUS_ADDITION;
         }
 
         /// <summary>
@@ -216,9 +218,9 @@ namespace RefactorSlotMachine
         /// <returns>The amount of money the player has</returns>
         public static decimal ResetPlayerMoney(decimal playerMoney) 
         {  
-            if (playerMoney == 0)
+            if (playerMoney < Constants.MIN_WAGER)
             {
-                playerMoney = Constants.PLAYER_MONEY_RESET;
+                playerMoney = Constants.INITIAL_PLAYER_MONEY;
             }
             return playerMoney;
         }

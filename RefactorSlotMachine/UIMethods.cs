@@ -99,14 +99,12 @@ namespace RefactorSlotMachine
         /// </summary>
         /// <param name="playerMoney">The amount of money the player has</param>
         /// <returns></returns>
-        public static decimal ResetPlayerMoney(decimal playerMoney) 
+        public static void ResetPlayerMoney(decimal playerMoney) 
         { 
-            if (playerMoney == 0)
+            if (playerMoney < Constants.MIN_WAGER)
             {
-                playerMoney = Logic.ResetPlayerMoney(playerMoney);
                 Console.WriteLine($"Player has lost all money. Resetting game...");
             }
-            return playerMoney;
         }
     }
 }

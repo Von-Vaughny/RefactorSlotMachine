@@ -1,12 +1,12 @@
 ﻿using RefactorSlotMachine;
 
-decimal playerMoney = Constants.PLAYER_MONEY_RESET;
+decimal playerMoney = Constants.INITIAL_PLAYER_MONEY;
 
 UIMethods.DisplayWelcomeMessage();
 
 while(true)
 {
-    decimal userInputWager = Logic.ValidateUserInputWager(0, playerMoney);
+    decimal userInputWager = Logic.ValidateUserInputWager(playerMoney);
     int[,] slotMachine = Logic.RandomizeSlotMachineRoll();
     playerMoney = Logic.CalculateRemainingPlayerMoney(userInputWager, playerMoney);
     decimal userPotentialEarnings = Logic.CalculatePotentialEarnings(userInputWager);
@@ -15,5 +15,6 @@ while(true)
     decimal playerWinAmount = Logic.CalculateWinEarnings(wins, userPotentialEarnings);
     playerMoney = Logic.CalculateNewPlayerMoney(playerMoney, playerWinAmount);
     UIMethods.DisplayGameResults(playerWinAmount);
-    playerMoney = UIMethods.ResetPlayerMoney(playerMoney);
+    UIMethods.ResetPlayerMoney(playerMoney);
+    playerMoney = Logic.ResetPlayerMoney(playerMoney);
 }

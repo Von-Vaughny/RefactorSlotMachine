@@ -14,9 +14,9 @@ namespace RefactorSlotMachine
         public const int LINE_8 = 7;
         public const int NUM_OF_CHECKS = 8;
 
-        public const decimal A_CENT = 0.01M;
-        public const decimal HALF_BONUS = 0.50M;
-        public const decimal A_DOLLAR = 1.00M;
-        public const decimal PLAYER_MONEY_RESET = 20.00M;
+        public const decimal MIN_WAGER = 0.01M;
+        public const decimal EARNINGS_DIFFERENTIAL = 0.500M;
+        public const decimal BONUS_ADDITION = 1.000M;
+        public const decimal INITIAL_PLAYER_MONEY = 20.00M;
     }
 }
