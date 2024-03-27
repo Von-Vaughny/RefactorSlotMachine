@@ -31,12 +31,14 @@ namespace RefactorSlotMachine
                 Console.Write($"How much is your wager (cannot exceed amount of player money): $");
 
                 string userInput = Console.ReadLine();
-                if (!decimal.TryParse(userInput, out userInputWager))
+                bool success = decimal.TryParse(userInput, out decimal userAmount);
+
+                if (!success)
                 {
                     Console.WriteLine($"Error: '{userInput}' is not a numeric amount between ${Constants.MIN_WAGER} and ${playerMoney}.");
                 }                
                 
-                if (decimal.TryParse(userInput, out decimal userAmount))
+                if (success)
                 {
                     if (userAmount < Constants.MIN_WAGER || userAmount > playerMoney)
                     {
