@@ -37,17 +37,6 @@ namespace RefactorSlotMachine
         }
 
         /// <summary>
-        /// Calculate how much money a line win adds per line won
-        /// </summary>
-        /// <param name="userInputWager">The amount of money the player wagers</param>
-        /// <returns>The amount player earns for each line won</returns>
-        public static decimal CalculatePotentialEarnings(decimal userInputWager)
-        {
-            return Constants.EARNINGS_DIFFERENTIAL * userInputWager + Constants.BONUS_ADDITION;
-        }
-
-
-        /// <summary>
         /// Get the number of lines won.
         /// </summary>
         /// <param name="slotMachine">3 x 3 array for slot machine roll</param>
@@ -178,8 +167,9 @@ namespace RefactorSlotMachine
         /// <param name="wins">The number of lines player won</param>
         /// <param name="userPotentialEarnings">The total amount of money player won</param>
         /// <returns>Total amount of money player won</returns>
-        public static decimal CalculateWinEarnings(int wins, decimal userPotentialEarnings)
+        public static decimal CalculateWinEarnings(int wins, decimal userInputWager)
         {
+            decimal userPotentialEarnings = Constants.EARNINGS_DIFFERENTIAL * userInputWager + Constants.BONUS_ADDITION;
             return wins * userPotentialEarnings;
         }
 
