@@ -1,7 +1,6 @@
 ﻿using RefactorSlotMachine;
 
-
-while(true)
+while (true)
 {
     decimal playerMoney = Constants.INITIAL_PLAYER_MONEY;
     UIMethods.DisplayWelcomeMessage();

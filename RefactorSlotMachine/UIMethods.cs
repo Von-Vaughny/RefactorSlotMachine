@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace RefactorSlotMachine
 {
     /// <summary>
@@ -27,10 +28,10 @@ namespace RefactorSlotMachine
             decimal userInputWager = 0.00M;
             while (userInputWager < Constants.MIN_WAGER || userInputWager > playerMoney)
             {
-                Console.WriteLine($"\nPlayer money: ${playerMoney:F2}");
+                Console.WriteLine($"\nPlayer money: ${playerMoney}");
                 Console.Write($"How much is your wager (cannot exceed amount of player money): $");
 
-                string userInput = Console.ReadLine();
+                string userInput = Console.ReadLine()!;
                 bool success = decimal.TryParse(userInput, out decimal userAmount);
 
                 if (!success)
@@ -47,7 +48,7 @@ namespace RefactorSlotMachine
 
                     if (userAmount > Constants.MIN_WAGER && userAmount <= playerMoney) 
                     {
-                        userInputWager = userAmount;
+                        userInputWager = Math.Round(userAmount);
                     }
                 }
             }
@@ -75,35 +76,14 @@ namespace RefactorSlotMachine
         }
 
         /// <summary>
-        /// Display each line on the slot machine roll
-        /// </summary>
-        /// <param name="aSingleLine">1 x 3 array for a single line in slot machine roll</param>
-        /// <param name="lineNumber">number to keep track of lines in slot machine array</param>
-        /// <param name="win">boolean to denote a line win</param>
-        public static void DisplayIndividualLine(int[] aSingleLine, int lineNumber, bool win) 
-        {
-            if (lineNumber == 1) 
-            {
-                Console.Write("\n");
-                Console.WriteLine("Individual Line Results");
-            }
-            Console.Write($"Line {lineNumber}: ");
-            for (int i = 0; i < Constants.LINE_LENGTH; i++)
-            { 
-                Console.Write($"{aSingleLine[i]} ");
-            }
-            Console.Write($"{win}\n");
-        }
-
-        /// <summary>
         /// Display the results of the game
         /// </summary>
         /// <param name="playerWinAmount">The total amount of money player won</param>
         public static void DisplayGameResults(decimal playerWinAmount)
         {
             string game_results = (playerWinAmount > 0) ? "WON" : "LOST";
-            Console.WriteLine($"\nPlayer {game_results}");
-            Console.WriteLine($"Won: ${playerWinAmount:F2}");
+            Console.WriteLine($"\nPlayer {game_results}!");
+            Console.WriteLine($"Won: ${playerWinAmount}");
         }
 
         /// <summary>

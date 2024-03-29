@@ -1,6 +1,7 @@
 ﻿
 namespace RefactorSlotMachine
 {
+ 
     /// <summary>
     /// The Logic file for RefactorSlotMachine.cs
     /// </summary>
@@ -33,7 +34,7 @@ namespace RefactorSlotMachine
         /// <returns>The amount of player money after paying the wager</returns>
         public static decimal CalculateRemainingPlayerMoney(decimal userInputWager, decimal playerMoney) 
         {
-            return playerMoney - userInputWager;
+            return playerMoney - Math.Round(userInputWager, 2);
         }
 
         /// <summary>
@@ -73,9 +74,6 @@ namespace RefactorSlotMachine
                     wins++;
                 }
                 slotLineNumber++;
-
-                // DELETE IN FINAL CODE
-                UIMethods.DisplayIndividualLine(aSingleLine, slotLineNumber, win);
             }
             return wins;
         }
