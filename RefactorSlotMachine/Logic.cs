@@ -140,7 +140,7 @@ namespace RefactorSlotMachine
         /// Check to see if line is a win
         /// </summary>
         /// <param name="aSingleLine">1 x 3 array for a single line in slot machine roll</param>
-        /// <param name="win">boolean to denote a line win</param>
+        /// <param name="win">Boolean to denote a line win</param>
         /// <returns>If line was a winner or not</returns>
         public static bool CheckLine(int[] aSingleLine, bool win)
         {
@@ -163,7 +163,7 @@ namespace RefactorSlotMachine
         /// Calculate the amount of money player won
         /// </summary>
         /// <param name="wins">The number of lines player won</param>
-        /// <param name="userPotentialEarnings">The total amount of money player won</param>
+        /// <param name="userInputWager">The player's wager</param>
         /// <returns>Total amount of money player won</returns>
         public static decimal CalculateWinEarnings(int wins, decimal userInputWager)
         {

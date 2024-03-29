@@ -89,7 +89,6 @@ namespace RefactorSlotMachine
         /// <summary>
         /// Display screen when player has run out of money
         /// </summary>
-        /// <param name="playerMoney">The amount of money the player has</param>
         /// <returns></returns>
         public static void DisplayGameResetMessage() 
         { 
